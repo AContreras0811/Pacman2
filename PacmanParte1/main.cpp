@@ -1,4 +1,4 @@
-#include "Map.h"
+#include "Enemy.h"
 
 /// <summary>
 /// Sets the needed variables
@@ -19,6 +19,7 @@ void Draw();
 
 enum USER_INPUTS { NONE, UP, DOWN, RIGHT, LEFT, QUIT };
 Map pacman_map = Map();
+Enemy enemy1 = Enemy(pacman_map.spawn_enemy);
 char player_char = 'O';
 int player_x = 1;
 int player_y = 1;
@@ -41,6 +42,9 @@ int main()
 void Setup()
 {
     std::cout.sync_with_stdio(false);
+
+    srand(time(NULL));
+
     player_x = pacman_map.spawn_player.X;
     player_y = pacman_map.spawn_player.Y;
 }
@@ -83,6 +87,7 @@ void Logic()
     }
     else
     {
+        enemy1.Logic(&pacman_map);
         int player_y_new = player_y;
         int player_x_new = player_x;
         switch (input)
@@ -140,6 +145,7 @@ void Draw()
 {
     ConsoleUtils::Console_SetPos(0,0);
     pacman_map.Draw();
+    enemy1.Draw();
     ConsoleUtils::Console_SetPos(player_x, player_y);
     ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::DARK_YELLOW);
     std::cout << player_char;
