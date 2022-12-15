@@ -20,4 +20,4 @@ public:
 	void Logic(Map* pacman_map);
 	void Draw();
 
-}
+};
